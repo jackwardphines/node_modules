@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <script src="blockly_compressed.js"></script>
+        <script src="blocks_compressed.js"></script>
+        <script src="javascript_compressed.js"></script>
+        <script src="msg/js/en.js"></script>
+    </head>
+    <body>
+        <h3>Blockly</h3>
+        <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+        <xml id="toolbox" style="display: none">
+            <category name="Statements">
+                <block type="controls_if"></block>
+                <block type="logic_compare"></block>
+                <block type="text"></block>
+                <block type="text_print"></block>
+                <block type="example_serializable_label" text="qwerty"></block>
+            </category>
+            <category name="variables">
+                <block type="math_number"></block>
+                <!--block type="field_variable">
+                <field name="VAR" id=".n*OKd.u}2UD9QFicbEX" variabletype="Panda">Bai Yun</field>
+                </block-->
+            </category>
+            <category name="Variables" colour="330" custom="VARIABLE"></category>
+            <category name="Colours" custom="COLOUR_PALETTE"></category>
+        </xml>
+        <p id="code">
+
+        </p>
+        <button onclick="document.getElementById('code').innerHTML=outputCode()">run</button>
+        <script>
+            Blockly.Blocks['example_serializable_label'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldLabelSerializable("a serializable label"), "FIELDNAME");
+  }
+};
+
+                var workspace = Blockly.inject('blocklyDiv',
+                    {toolbox: document.getElementById('toolbox')});
+                var code = Blockly.JavaScript.workspaceToCode(workspace);
+                function outputCode(){
+                    return Blockly.JavaScript.workspaceToCode(workspace);
+                    console.log(code)
+                }
+
+                //-----------------------By Pass -----------------------------
+                coloursFlyoutCallback = (workspace)=>{
+                // Returns an array of hex colours, e.g. ['#4286f4', '#ef0447']
+                var colourList = ['#4286f4','#ef0447'];
+                var xmlList = [];
+                if (Blockly.Blocks['colour_picker']) {
+                    for (var i = 0; i < colourList.length; i++) {
+                    var blockText = '<block type="example_serializable_label">' +
+                        '<field name="FIELDNAME">' + "hey" + '</field>' +
+                        '</block>';
+                    var block = Blockly.Xml.textToDom(blockText);
+                    xmlList.push(block);
+                    }
+                    tem();
+                }
+                console.log(xmlList);
+                return xmlList;
+                };
+                //-----------------------End------------------------------------
+                workspace.registerToolboxCategoryCallback('COLOUR_PALETTE', coloursFlyoutCallback);
+        </script>
+        <script>
+            function tem(){
+            var top_blocks = workspace.getTopBlocks(false);
+            console.log(top_blocks);
+            for(var i in top_blocks) {
+                console.log(i);
+                var top_block = top_blocks[i];
+                    if(top_block.type == 'example_serializable_label') {
+                        console.log(top_block.getFieldValue( 'FIELDNAME' ));
+                    }
+            }
+        }
+        </script>
+    </body>
+</html>
